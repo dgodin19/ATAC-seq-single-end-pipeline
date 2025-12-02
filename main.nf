@@ -1,0 +1,22 @@
+include {GET_ACCESSIONS} from './modules/get_accessions'
+include {DOWNLOAD_SAMPLES} from './modules/download_data'
+include {FASTQC} from './modules/fastqc'
+include {TRIM} from './modules/trimmomatic'
+
+workflow {
+    // Get accessions with full metadata
+    accessions_ch = GET_ACCESSIONS(params.project_accession)
+    
+    // Convert stdout to file
+    accessions_ch
+    .splitCsv(header:true)
+    .map{ row -> tuple(row.Run, row.BioSample, row.SampleName, row.LibraryLayout, row.LibrarySource, row.Experiment) }
+    .set { read_ch }
+    DOWNLOAD_SAMPLES(read_ch)
+    FASTQC(DOWNLOAD_SAMPLES.out)
+    TRIM(DOWNLOAD_SAMPLES.out, params.adapters)
+
+    
+
+
+}

@@ -1,0 +1,7 @@
+results/
+work/
+data/
+refs/
+bin/
+envs/
+.nextflow.log*
