@@ -22,3 +22,8 @@
 2025-12-01 21:40:10	3m 27s	curious_majorana	OK	ccf6dfde88a666e56bce684af1b3337e	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-02 11:57:11	5m 7s	lonely_mccarthy	ERR	5d769a4deb1292f46af01004959e4883	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-02 12:04:21	20m 31s	admiring_lamarck	OK	5d769a4deb1292f46af01004959e4883	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-02 13:17:37	1h 6m 22s	ridiculous_goldberg	ERR	87b642f7b979abfa3308baadfd993595	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-02 14:26:30	1m 12s	focused_panini	ERR	87b642f7b979abfa3308baadfd993595	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-02 14:32:07	42s	pedantic_stone	ERR	87b642f7b979abfa3308baadfd993595	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-02 14:44:08	36.9s	nostalgic_gautier	ERR	87b642f7b979abfa3308baadfd993595	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-02 14:57:55	14m 22s	cheeky_wegener	OK	87b642f7b979abfa3308baadfd993595	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda

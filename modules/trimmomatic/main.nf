@@ -11,7 +11,7 @@ process TRIM {
 
 	output:
 	tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path('*_trim.log'), emit: log
-	tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), emit: trim
+	tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path('*_trimmed.fastq.gz'), emit: trim
 
     
     script:

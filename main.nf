@@ -2,6 +2,8 @@ include {GET_ACCESSIONS} from './modules/get_accessions'
 include {DOWNLOAD_SAMPLES} from './modules/download_data'
 include {FASTQC} from './modules/fastqc'
 include {TRIM} from './modules/trimmomatic'
+include {BOWTIE2_BUILD} from './modules/build'
+include {BOWTIE2_ALIGN} from './modules/align'
 
 workflow {
     // Get accessions with full metadata
@@ -15,6 +17,9 @@ workflow {
     DOWNLOAD_SAMPLES(read_ch)
     FASTQC(DOWNLOAD_SAMPLES.out)
     TRIM(DOWNLOAD_SAMPLES.out, params.adapters)
+    BOWTIE2_BUILD(tuple("mm10", params.genome))
+    BOWTIE2_ALIGN(TRIM.out.trim, BOWTIE2_BUILD.out.index)
+
 
     
 

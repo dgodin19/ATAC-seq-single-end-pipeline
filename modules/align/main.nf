@@ -1,44 +1,43 @@
 #!/usr/bin/env nextflow
 
 process BOWTIE2_ALIGN {
-    container 'ghcr.io/bf528/bowtie2:latest'
-    publishDir params.outdir, mode: "copy", pattern: '*.bam'
-    label 'process_medium'
+    label 'process_high'
+    conda 'envs/bowtie2_env.yml'
 
     input:
-    tuple val(sample), path(fastq)
+    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path(fastq)
     tuple val(name), path(index)
 
     output:
-    tuple val(sample), val(name), path("${sample}.bam"), emit: bam
+    tuple val(run), val(name), path("${run}.filtered.bam"), path("${run}.bam"), emit: bam
 
     script:
     """
     bowtie2 \
     -x ${index}/${name} \
     -U ${fastq} \
-    -S ${sample}.sam \
+    -S ${run}.sam \
     --very-sensitive \
-    --no-discordant \
-    --no-mixed \
-    -m 1 \
-    --maxins 2000 \
+    -p ${task.cpus} \
     -q
     
-    # Convert to BAM and filter
-    samtools view -q 30 -F 4 -f 2 -b ${sample}.sam > ${sample}.bam
-    samtools sort ${sample}.bam -o ${sample}.sorted.bam
-    samtools index ${sample}.sorted.bam
-    rm ${sample}.sam
+    # Remove -m 1 and --maxins 2000 flags
+    # Add threads with -p
+    # Consider adding --no-unal to reduce output size
 
-    # Optional: additional ATAC-seq specific filtering
-    samtools view -h ${sample}.sorted.bam | \
-    grep -v "chrM" | \
-    samtools view -bS > ${sample}.filtered.bam
+    # Convert to BAM and filter
+    samtools view -q 30 -F 4 -b ${run}.sam > ${run}.bam
+    samtools sort ${run}.bam -o ${run}.sorted.bam
+    samtools index ${run}.sorted.bam
+    rm ${run}.sam
+
+    samtools view -h ${run}.sorted.bam | \
+        grep -v "chrM" | \
+        samtools view -bS > ${run}.filtered.bam
     """
-   
     stub:
     """
-    touch ${sample}.bam
+    touch ${run}.bam
+    touch ${run}.filtered.bam
     """
 }

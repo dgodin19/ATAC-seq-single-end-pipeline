@@ -1,10 +1,10 @@
 #!/usr/bin/env nextflow
 
 process BOWTIE2_BUILD {
-    container 'ghcr.io/bf528/bowtie2:latest'
+    label 'process_high'
+    conda 'envs/bowtie2_env.yml'
     publishDir params.outdir, mode: "copy", pattern: '*.html'
-	label 'process_high'
-
+	
     input:
     tuple val(name), path(genome)
 

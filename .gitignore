@@ -5,3 +5,4 @@ refs/
 bin/
 envs/
 .nextflow.log*
+.nextflow*
