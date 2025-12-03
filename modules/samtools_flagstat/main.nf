@@ -1,21 +1,21 @@
 #!/usr/bin/env nextflow
 
 process SAMTOOLS_FLAGSTAT {
-    container 'ghcr.io/bf528/samtools:latest'
+    label 'process_medium'
+    conda 'envs/samtools_env.yml'
     publishDir params.outdir, mode: "copy", pattern: '*_flagstat.txt'
-	label 'process_medium'
-
+	
     input:
-    tuple val(sample), val(name), path(bam)
+    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path(bam)
     output:
-    tuple val(sample), val(name), path("${sample}_flagstat.txt"), emit: flagstat
+    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path("${run}_flagstat.txt"), emit: flagstat
 
     script:
     """
-    samtools flagstat ${bam} > ${sample}_flagstat.txt
+    samtools flagstat ${bam} > ${run}_flagstat.txt
     """
     stub:
     """
-    touch ${sample}_flagstat.txt
+    touch ${run}_flagstat.txt
     """
 }

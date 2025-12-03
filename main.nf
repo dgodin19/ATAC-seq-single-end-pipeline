@@ -4,6 +4,8 @@ include {FASTQC} from './modules/fastqc'
 include {TRIM} from './modules/trimmomatic'
 include {BOWTIE2_BUILD} from './modules/build'
 include {BOWTIE2_ALIGN} from './modules/align'
+include {SAMTOOLS_FLAGSTAT} from './modules/samtools_flagstat'
+include {SHIFT_ALIGN} from './modules/shift_align'
 
 workflow {
     // Get accessions with full metadata
@@ -19,6 +21,9 @@ workflow {
     TRIM(DOWNLOAD_SAMPLES.out, params.adapters)
     BOWTIE2_BUILD(tuple("mm10", params.genome))
     BOWTIE2_ALIGN(TRIM.out.trim, BOWTIE2_BUILD.out.index)
+
+    SAMTOOLS_FLAGSTAT(BOWTIE2_ALIGN.out.samtools_flagstat)
+    SHIFT_ALIGN(BOWTIE2_ALIGN.out.filtered_bam)
 
 
     
