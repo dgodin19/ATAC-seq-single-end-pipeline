@@ -1,10 +1,10 @@
 #!/usr/bin/env nextflow
 
 process MULTIQC {
-    container 'ghcr.io/bf528/multiqc:latest'
+    label 'process_low'
+	conda 'envs/multiqc_env.yml'
 	publishDir params.outdir, mode: "copy", pattern: '*.html'
-	label 'process_low'
-
+	
 	input:
 	path ('*')
 

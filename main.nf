@@ -6,6 +6,8 @@ include {BOWTIE2_BUILD} from './modules/build'
 include {BOWTIE2_ALIGN} from './modules/align'
 include {SAMTOOLS_FLAGSTAT} from './modules/samtools_flagstat'
 include {SHIFT_ALIGN} from './modules/shift_align'
+include {MULTIQC} from './modules/multiqc'
+
 
 workflow {
     // Get accessions with full metadata
@@ -24,6 +26,22 @@ workflow {
 
     SAMTOOLS_FLAGSTAT(BOWTIE2_ALIGN.out.samtools_flagstat)
     SHIFT_ALIGN(BOWTIE2_ALIGN.out.filtered_bam)
+
+    multiqc_ch = Channel
+    .empty()
+    .mix(TRIM.out.log.map { it[6] })  
+    .mix(SAMTOOLS_FLAGSTAT.out.flagstat.map { it[6] }) 
+    .mix(FASTQC.out.html.map { it[6] })
+    .mix(FASTQC.out.zip.map { it[6] })  // Add FastQC zip files
+    .flatten()
+    .unique()
+    .map { 
+        println "MultiQC Input: $it"  // Debug print
+        it 
+    }
+    .collect()
+
+    MULTIQC(multiqc_ch)
 
 
     
