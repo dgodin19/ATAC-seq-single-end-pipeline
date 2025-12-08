@@ -5,8 +5,9 @@ include {TRIM} from './modules/trimmomatic'
 include {BOWTIE2_BUILD} from './modules/build'
 include {BOWTIE2_ALIGN} from './modules/align'
 include {SAMTOOLS_FLAGSTAT} from './modules/samtools_flagstat'
-include {SHIFT_ALIGN} from './modules/shift_align'
 include {MULTIQC} from './modules/multiqc'
+include {REMOVE_BLACKLIST} from './modules/remove_blacklist'
+include {CALL_PEAKS} from './modules/call_peaks'
 
 
 workflow {
@@ -25,7 +26,7 @@ workflow {
     BOWTIE2_ALIGN(TRIM.out.trim, BOWTIE2_BUILD.out.index)
 
     SAMTOOLS_FLAGSTAT(BOWTIE2_ALIGN.out.samtools_flagstat)
-    SHIFT_ALIGN(BOWTIE2_ALIGN.out.filtered_bam)
+    
 
     multiqc_ch = Channel
     .empty()
@@ -43,8 +44,8 @@ workflow {
 
     MULTIQC(multiqc_ch)
 
-
-    
+    CALL_PEAKS(BOWTIE2_ALIGN.out.filtered_bam)
+    REMOVE_BLACKLIST(CALL_PEAKS.out, params.blacklist)
 
 
 }

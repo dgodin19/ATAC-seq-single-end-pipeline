@@ -37,3 +37,16 @@
 2025-12-03 11:27:51	1m 13s	nice_heisenberg	ERR	6a94bae94611b6fb57187f07b744a8f3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-03 11:30:25	4m 53s	angry_khorana	ERR	6a94bae94611b6fb57187f07b744a8f3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-03 11:45:56	4m 22s	intergalactic_franklin	OK	6a94bae94611b6fb57187f07b744a8f3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-06 23:18:03	1m 46s	determined_ramanujan	OK	7cd78c3278a9cd49ae4b0d17cfd5b856	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-06 23:26:39	2m 12s	distracted_mccarthy	ERR	5de6ead4f517e107c19c3792277c0a6f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-06 23:33:30	1m 37s	suspicious_darwin	ERR	2b62d337425e2c0539ce682fd2930c89	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-06 23:37:28	2m 37s	elegant_carson	ERR	5de6ead4f517e107c19c3792277c0a6f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-07 14:00:37	-	irreverent_pesquet	-	5de6ead4f517e107c19c3792277c0a6f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-07 14:01:05	6m 7s	lonely_yalow	ERR	5de6ead4f517e107c19c3792277c0a6f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-07 14:07:50	6m 7s	irreverent_rubens	ERR	5de6ead4f517e107c19c3792277c0a6f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-07 14:33:00	1h 18m 22s	fervent_montalcini	ERR	0473929e926a357df49e44b5694c8fd1	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 11:47:46	1m 24s	backstabbing_brenner	ERR	aab841f369c002edd2104dec00623f57	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 11:49:35	4m 52s	elegant_davinci	ERR	aab841f369c002edd2104dec00623f57	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 12:16:20	1m 13s	awesome_kilby	ERR	aab841f369c002edd2104dec00623f57	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 15:16:52	3m 13s	agitated_cajal	ERR	2da1b8d7a487d3c5c01e4e2593a075a3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 15:26:08	11m 57s	zen_ampere	OK	2da1b8d7a487d3c5c01e4e2593a075a3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
