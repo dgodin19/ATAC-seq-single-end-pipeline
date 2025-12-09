@@ -7,25 +7,16 @@ process MERGE_PEAKS {
     publishDir params.outdir, mode: "copy", pattern: '*.bed'
 
     input:
-    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path(shifted_blacklist_removed_bam),  path(shifted_blacklist_removed_bam_index)
+    path bed_list
 
     output:
-    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment),
-          path("${run}_peaks.narrowPeak"),
-          path("${run}_summits.bed"),
-          path("${run}_peaks.xls"),
-          path("${run}_treat_pileup.bdg")
+    path "consensus_peaks.bed"
 
     script:
     """
-    samtools view -c ${shifted_blacklist_removed_bam}
-    macs2 callpeak \
-        -t ${shifted_blacklist_removed_bam} \
-        -f BAM \
-        -g mm \
-        --nomodel \
-        --keep-dup auto \
-        --extsize 147 \
-        -n ${run}
+    cat *.bed \
+    | sort -k1,1 -k2,2n \
+    | bedtools merge \
+    > consensus_peaks.bed
     """
 }

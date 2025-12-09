@@ -50,3 +50,6 @@
 2025-12-08 12:16:20	1m 13s	awesome_kilby	ERR	aab841f369c002edd2104dec00623f57	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-08 15:16:52	3m 13s	agitated_cajal	ERR	2da1b8d7a487d3c5c01e4e2593a075a3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-08 15:26:08	11m 57s	zen_ampere	OK	2da1b8d7a487d3c5c01e4e2593a075a3	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 19:53:39	2.8s	wise_picasso	ERR	3c2e3fd842a8f784989ecde419bb47b9	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 19:58:16	2.4s	small_bassi	ERR	d0518f0bb38e9c455c6a452388015bd7	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-08 19:59:42	2m 17s	nauseous_linnaeus	OK	630f753a03d171a5ba588857f21f8947	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda

@@ -8,6 +8,7 @@ include {SAMTOOLS_FLAGSTAT} from './modules/samtools_flagstat'
 include {MULTIQC} from './modules/multiqc'
 include {REMOVE_BLACKLIST} from './modules/remove_blacklist'
 include {CALL_PEAKS} from './modules/call_peaks'
+include {MERGE_PEAKS} from './modules/merge_peaks'
 
 
 workflow {
@@ -45,7 +46,12 @@ workflow {
     MULTIQC(multiqc_ch)
 
     CALL_PEAKS(BOWTIE2_ALIGN.out.filtered_bam)
-    REMOVE_BLACKLIST(CALL_PEAKS.out, params.blacklist)
+    REMOVE_BLACKLIST_OUT = REMOVE_BLACKLIST(CALL_PEAKS.out, params.blacklist)
+    bed_files = REMOVE_BLACKLIST_OUT.map { tuple -> tuple[6] }
+    bed_files_list = bed_files.collect()
+    MERGE_PEAKS(bed_files_list)
+
+
 
 
 }
