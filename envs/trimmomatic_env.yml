@@ -1,0 +1,8 @@
+name: trimmomatic_env
+channels:
+- conda-forge
+- bioconda
+
+
+dependencies:
+- trimmomatic=0.40

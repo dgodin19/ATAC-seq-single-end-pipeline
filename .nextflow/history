@@ -103,3 +103,4 @@
 2025-12-11 14:20:47	-	suspicious_ramanujan	-	43fc79f53f09d9ce1878b107b28d399f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-11 14:21:04	8m 43s	extravagant_mccarthy	ERR	43fc79f53f09d9ce1878b107b28d399f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-11 14:33:35	4m 23s	sad_meucci	OK	43fc79f53f09d9ce1878b107b28d399f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-11 20:43:30	-	gigantic_miescher	-	52930e0b3a3af288ae01843f3646421f	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda

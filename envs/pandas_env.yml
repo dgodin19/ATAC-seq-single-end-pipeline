@@ -1,0 +1,9 @@
+name: pandas_env.yml
+channels:
+- conda-forge
+- bioconda
+
+dependencies:
+- python=3.14.1
+- pandas=2.3.3
+- numpy=2.3.5

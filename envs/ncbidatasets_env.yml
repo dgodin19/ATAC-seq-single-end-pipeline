@@ -1,0 +1,8 @@
+name: ncbidatasets_env
+channels:
+- conda-forge
+- bioconda
+
+dependencies:
+- entrez-direct=24.0
+- sra-tools=3.2.1

@@ -1,0 +1,9 @@
+name: diffbind_env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconductor-diffbind=3.16.0     
+  - bioconductor-rtracklayer=1.66.0    
+  - r-base=4.4.3  
+
