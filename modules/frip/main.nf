@@ -6,8 +6,7 @@ process FRIP_CALC {
     publishDir params.outdir, mode: "copy", pattern: '*.txt'
 
     input:
-    tuple val(run), path(filtered_bam)
-    path peaks_bed
+    tuple val(run), path(filtered_bam), path (peaks_bed)
 
     output:
     path("${run}_frip.txt")

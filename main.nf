@@ -72,9 +72,8 @@ workflow {
     frip_results = frip_input.map { run, bam, _, peaks ->
         tuple(run, bam, peaks)
     }
-    .into { frip_ready }
-    frip_ready.view()
-    FRIP_CALC( frip_ready )
+    frip_results.view()
+    FRIP_CALC( frip_results )
     MERGE_FRIP( FRIP_CALC.out.collect() )
     
     
@@ -137,11 +136,6 @@ workflow {
     DIFFBIND(all_sheets)
     ANNOTATE(DIFFBIND.out, params.genome, params.gtf)
     FIND_MOTIFS(DIFFBIND.out, params.genome)
-
-
-
-
-
 
     
 }
