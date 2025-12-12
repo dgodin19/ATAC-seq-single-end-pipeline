@@ -4,6 +4,12 @@ include {FASTQC} from './modules/fastqc'
 include {TRIM} from './modules/trimmomatic'
 include {BOWTIE2_BUILD} from './modules/build'
 include {BOWTIE2_ALIGN} from './modules/align'
+include {BAMCOVERAGE} from './modules/deeptools_bamcoverage'
+include {COMPUTEMATRIX} from './modules/deeptools_computematrix'
+include {PLOTPROFILE} from './modules/deeptools_plotprofile'
+include {COMPUTE_TSS_ENRICH} from './modules/compute_tss_enrich'
+include {FRIP_CALC} from './modules/frip'
+include {MERGE_FRIP} from './modules/merge_frip'
 include {SAMTOOLS_FLAGSTAT} from './modules/samtools_flagstat'
 include {MULTIQC} from './modules/multiqc'
 include {REMOVE_BLACKLIST} from './modules/remove_blacklist'
@@ -11,12 +17,8 @@ include {CALL_PEAKS} from './modules/call_peaks'
 include {PREPARE_DIFFBIND_SAMPLESHEET} from './modules/prepare_diffbind_samplesheet'
 include {MERGE_SAMPLESHEETS} from './modules/merge_samplesheets'
 include {DIFFBIND} from './modules/diffbind'
-/*include {MERGE_PEAKS as MERGE_PEAKS_KO} from './modules/merge_peaks'
-include {MERGE_PEAKS as MERGE_PEAKS_WT} from './modules/merge_peaks'
-include {ANNOTATE as ANNOTATE_KO} from './modules/annotate'
-include {ANNOTATE as ANNOTATE_WT} from './modules/annotate'
-include {FIND_MOTIFS as FIND_MOTIFS_KO} from './modules/find_motifs'
-include {FIND_MOTIFS as FIND_MOTIFS_WT} from './modules/find_motifs'*/
+include {ANNOTATE} from './modules/annotate'
+include {FIND_MOTIFS} from './modules/find_motifs'
 
 
 workflow {
@@ -54,6 +56,27 @@ workflow {
     MULTIQC(multiqc_ch)
 
     CALL_PEAKS(BOWTIE2_ALIGN.out.filtered_bam)
+    BAMCOVERAGE(BOWTIE2_ALIGN.out.filtered_bam)
+    bigwig_summary = BAMCOVERAGE.out.map { it[1] }.collect()
+    COMPUTEMATRIX(bigwig_summary, params.ucsc_genes, params.window)
+    PLOTPROFILE(COMPUTEMATRIX.out)
+    COMPUTE_TSS_ENRICH(PLOTPROFILE.out.signal_tab)
+    
+    frip_ch = BOWTIE2_ALIGN.out.filtered_bam.map { t ->
+        tuple(t[0], t[6])    
+    }
+    peaks_ch = CALL_PEAKS.out.map { t ->
+        tuple(t[0], t[6])    
+    }
+    frip_input = frip_ch.join(peaks_ch)
+    frip_results = frip_input.map { run, bam, _, peaks ->
+        tuple(run, bam, peaks)
+    }
+    .into { frip_ready }
+    frip_ready.view()
+    FRIP_CALC( frip_ready )
+    MERGE_FRIP( FRIP_CALC.out.collect() )
+    
     
 
     // Load metadata
@@ -95,10 +118,7 @@ workflow {
     prepared_ch.view()
     
     sheet_ch = PREPARE_DIFFBIND_SAMPLESHEET(prepared_ch)
-   
-
     
-
     sheet_ch
     .map { file -> 
     def match = file.name =~ /(cDC\d)/
@@ -115,41 +135,13 @@ workflow {
     .set { all_sheets }
 
     DIFFBIND(all_sheets)
+    ANNOTATE(DIFFBIND.out, params.genome, params.gtf)
+    FIND_MOTIFS(DIFFBIND.out, params.genome)
 
-    /*merged_csv_ch.branch {
-    cdc1: it.name.contains('cDC1')
-    cdc2: it.name.contains('cDC2')
-    }.set { branched }
 
-    DIFFBIND_CDC1(branched.cdc1)
-    DIFFBIND_CDC2(branched.cdc2)*/
 
-    // Output from callpeaks
-    //tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment),
-    //      path("${run}_peaks.narrowPeak"),
-    //      path("${run}_summits.bed"),
-    //      path("${run}_peaks.xls")
 
-    //Output from align
-    //tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), 
-    //path("${run}.filtered.bam"), path("${run}.filtered.bam.bai"), emit: filtered_bam
 
-    //Structure of metadata
-    // run,genotype,library_name,condition
-
-    //Target structure of input csv file for cDC1
-    // SampleID	Tissue	Factor	Condition	Replicate	bamReads	Peaks	PeakCaller
-    // SRR28895184	cells	ATAC	cDC1_KO	2	SRR28895184.filtered.bam	SRR28895184_peaks.narrowPeak	narrowPeak
-    // SRR28895186	cells	ATAC	cDC1_WT	2	SRR28895186.filtered.bam	SRR28895186_peaks.narrowPeak	narrowPeak
-    // SRR28895188	cells	ATAC	cDC1_KO	1	SRR28895188.filtered.bam	SRR28895188_peaks.narrowPeak	narrowPeak
-    //SRR28895190	cells	ATAC	cDC1_WT	1	SRR28895190.filtered.bam	SRR28895190_peaks.narrowPeak	narrowPeak
-
-    //Target structure of input csv file for cDC2
-    //SampleID	Tissue	Factor	Condition	Replicate	bamReads	Peaks	PeakCaller
-    // SRR28895183	cells	ATAC	cDC2_KO	2	SRR28895183.filtered.bam	SRR28895183_peaks.narrowPeak	narrowPeak
-    // SRR28895185	cells	ATAC	cDC2_WT	2	SRR28895185.filtered.bam	SRR28895185_peaks.narrowPeak	narrowPeak
-    // SRR28895187	cells	ATAC	cDC2_KO	1	SRR28895187.filtered.bam	SRR28895187_peaks.narrowPeak	narrowPeak
-    // SRR28895189	cells	ATAC	cDC2_WT	1	SRR28895189.filtered.bam	SRR28895189_peaks.narrowPeak	narrowPeak
 
     
 }
