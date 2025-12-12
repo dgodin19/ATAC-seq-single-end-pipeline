@@ -6,7 +6,11 @@ process FRIP_CALC {
     publishDir params.outdir, mode: "copy", pattern: '*.txt'
 
     input:
-    tuple val(run), path(filtered_bam), path (peaks_bed)
+    tuple val(run), val(biosample), val(samplename), val(library_layout), val(library_source), val(experiment), path(filtered_bam), 
+    path(filtered_bam_index),
+    path(peaks_bed),
+    path(summits_bed),
+    path(peaks_xls)
 
     output:
     path("${run}_frip.txt")

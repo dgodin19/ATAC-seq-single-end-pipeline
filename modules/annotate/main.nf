@@ -1,9 +1,12 @@
 #!/usr/bin/env nextflow
 
 process ANNOTATE {
+    conda 'envs/homer_env.yml'
+    publishDir params.outdir, mode: "copy", pattern: '*.txt'
+    
     input:
     path filtered_bed
-    path genome
+    tuple path(genome), path(genome_idx)
     path gtf
 
     output:
@@ -14,6 +17,7 @@ process ANNOTATE {
     def condition = filtered_bed.baseName.replace('_significant_peaks_p001','')
 
     """
-    annotatePeaks.pl ${filtered_bed} ${genome} -gtf ${gtf} > annotated_${condition}_peaks.txt
+    awk '{OFS="\t"; print \$1,\$2,\$3,".",\$5,\$6}' ${filtered_bed} > ${condition}.bed
+    annotatePeaks.pl ${condition}.bed ${genome} -gtf ${gtf} > annotated_${condition}_peaks.txt
     """
 }

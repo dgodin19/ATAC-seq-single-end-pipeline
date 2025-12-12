@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 parser = argparse.ArgumentParser(
-    description="Compute TSS enrichment score from plotProfile --outFileNameData output"
+    description="Compute TSS enrichment scores for all samples from plotProfile --outFileNameData output"
 )
 
 parser.add_argument(
@@ -17,31 +17,26 @@ parser.add_argument(
 parser.add_argument(
     "-o", "--output",
     required=True,
-    help="Output file for TSS enrichment score"
+    help="Output file for TSS enrichment scores"
 )
 
 args = parser.parse_args()
 
-
-df = pd.read_csv(args.input, sep="\t", comment="#")
-
-signal = df.iloc[0, 1:].to_numpy()
-
-n = len(signal)
-
-
-center = signal[n//2 - 2 : n//2 + 2].mean()
-
-
-flanks = np.concatenate([
-    signal[: n // 4],
-    signal[3 * n // 4 :]
-]).mean()
-
-enrichment = center / flanks
-
+# Read in the data, skipping unneeded header lines (first 2 lines are not data)
+df = pd.read_csv(args.input, sep="\t", header=None, skiprows=2)
 
 with open(args.output, "w") as f:
-    f.write(f"TSS_enrichment\t{enrichment:.5f}\n")
+    f.write("Sample\tTSS_enrichment\n")  # header
 
-print(f"TSS enrichment score: {enrichment:.5f}")
+    for idx, row in df.iterrows():
+        sample = str(row[0])
+        signal = row[2:].astype(float).to_numpy()
+        n = len(signal)
+        if n < 8:  # avoid weird edge cases
+            f.write(f"{sample}\tNaN\n")
+            continue
+
+        center = signal[n//2 - 2 : n//2 + 2].mean()
+        flanks = np.concatenate([signal[: n // 4], signal[3 * n // 4 :]]).mean()
+        enrichment = center / flanks if flanks != 0 else float('nan')
+        f.write(f"{sample}\t{enrichment:.5f}\n")

@@ -17,6 +17,7 @@ include {CALL_PEAKS} from './modules/call_peaks'
 include {PREPARE_DIFFBIND_SAMPLESHEET} from './modules/prepare_diffbind_samplesheet'
 include {MERGE_SAMPLESHEETS} from './modules/merge_samplesheets'
 include {DIFFBIND} from './modules/diffbind'
+include {SAMTOOLS_GENOME} from './modules/samtools_genome'
 include {ANNOTATE} from './modules/annotate'
 include {FIND_MOTIFS} from './modules/find_motifs'
 
@@ -62,22 +63,6 @@ workflow {
     PLOTPROFILE(COMPUTEMATRIX.out)
     COMPUTE_TSS_ENRICH(PLOTPROFILE.out.signal_tab)
     
-    frip_ch = BOWTIE2_ALIGN.out.filtered_bam.map { t ->
-        tuple(t[0], t[6])    
-    }
-    peaks_ch = CALL_PEAKS.out.map { t ->
-        tuple(t[0], t[6])    
-    }
-    frip_input = frip_ch.join(peaks_ch)
-    frip_results = frip_input.map { run, bam, _, peaks ->
-        tuple(run, bam, peaks)
-    }
-    frip_results.view()
-    FRIP_CALC( frip_results )
-    MERGE_FRIP( FRIP_CALC.out.collect() )
-    
-    
-
     // Load metadata
     metadata_ch = Channel
         .fromPath(params.metadata)
@@ -90,7 +75,9 @@ workflow {
 
     align_peaks_ch = BOWTIE2_ALIGN.out.filtered_bam
         .join(CALL_PEAKS.out, by: [0,1,2,3,4,5])
-
+    
+    FRIP_CALC(align_peaks_ch)
+    MERGE_FRIP( FRIP_CALC.out.collect() )
 
     
     combined_ch = align_peaks_ch.join(metadata_ch, by: 0)
@@ -114,7 +101,7 @@ workflow {
         it[14]   // replicate (e.g., "1")
     )
     }
-    prepared_ch.view()
+    
     
     sheet_ch = PREPARE_DIFFBIND_SAMPLESHEET(prepared_ch)
     
@@ -134,8 +121,9 @@ workflow {
     .set { all_sheets }
 
     DIFFBIND(all_sheets)
-    ANNOTATE(DIFFBIND.out, params.genome, params.gtf)
-    FIND_MOTIFS(DIFFBIND.out, params.genome)
+    genome_idx_ch = SAMTOOLS_GENOME(params.genome)
+    ANNOTATE(DIFFBIND.out, genome_idx_ch, params.gtf)
+    FIND_MOTIFS(DIFFBIND.out, genome_idx_ch)
 
     
 }

@@ -13,6 +13,6 @@ process COMPUTE_TSS_ENRICH {
 
     script:
     """
-    ./compute_tss_enrichment.py --input ${signal_coverage} --output tss_enrichment.txt
+    compute_tss_enrichment.py --input ${signal_coverage} --output tss_enrichment.txt
     """
 }
