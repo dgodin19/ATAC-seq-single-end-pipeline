@@ -1,6 +1,10 @@
 results/
 work/
 data/
-refs/
+refs/adapters.fa
+refs/mm10.blacklist.bed
+refs/mm10.fa
+refs/mm10_genes.bed
+refs/mm10.gtf
 .nextflow.log*
 .nextflow*
