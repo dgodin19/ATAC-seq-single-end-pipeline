@@ -3,16 +3,18 @@
 process COMPUTE_TSS_ENRICH {
     conda 'envs/pandas_env.yml'
     label 'process_low'
-    publishDir params.outdir, mode: "copy", pattern: '*'
+    publishDir params.outdir, mode: "copy", pattern: '*.txt'
 
     input:
-    path signal_coverage
+    tuple val (celltype), path (signal_coverage_tab)
 
     output:
-    path 'tss_enrichment.txt'
+    path("${celltype}_tss_enrichment.txt")
 
     script:
     """
-    compute_tss_enrichment.py --input ${signal_coverage} --output tss_enrichment.txt
+    compute_tss_enrichment.py \
+       --input ${signal_coverage_tab} \
+       --output ${celltype}_tss_enrichment.txt
     """
 }

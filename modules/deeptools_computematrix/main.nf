@@ -3,30 +3,28 @@
 process COMPUTEMATRIX {
     conda 'envs/deeptools_env.yml'
     publishDir params.outdir, mode: "copy", pattern: '*.gz'
-	label 'process_medium'
+    label 'process_medium'
 
     input:
-    val(bigwigs) 
-    path(bed) 
-    val(window)
+    val(celltype) 
+    path(bigwigs) 
+    path(sigpeak_bed)
 
     output:
-    path('matrix.gz')
+    tuple val(celltype), path("${celltype}_matrix.gz")
 
     script:
-
     """
     computeMatrix reference-point \
-    -S ${bigwigs.join(' ')} \
-    -R ${bed} \
-    --referencePoint TSS \
-    -b ${window} \
-    -a ${window} \
-    -o matrix.gz
+      --referencePoint center \
+      -S ${bigwigs.join(' ')} \
+      -R $sigpeak_bed \
+      -b 500 -a 500 \
+      -o ${celltype}_matrix.gz
     """
 
     stub:
     """
-    touch matrix.gz
+    touch ${celltype}_matrix.gz
     """
 }
