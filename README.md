@@ -119,7 +119,7 @@ Enriched cell types for significant peaks against CellMarker Augmented 2021 for 
 
 ### Figure 1, Enriched cell types against CellMarker Augmented 2021 for cDC1
 
-![Enrichr results for cDC1](./results/cellmarker_augmented_2021_cdc1.png)
+![Enrichr results for cDC1](images/cellmarker_augmented_2021_cdc1.png)
 
 Enriched cell types for significant peaks against CellMarker Augmented 2021 for cDC1.
 
@@ -142,7 +142,7 @@ Enriched cell types for significant peaks against CellMarker Augmented 2021 for 
 
 ### Figure 2, Enriched cell types against CellMarker Augmented 2021 for cDC1
 
-![Enrichr results for cDC2](./results/cellmarker_augmented_2021_cdc2.png)
+![Enrichr results for cDC2](images/cellmarker_augmented_2021_cdc2.png)
 
 Enriched cell types for significant peaks against CellMarker Augmented 2021 for cDC2.
 
@@ -154,13 +154,13 @@ In the original study, the Spib promoter region was reported as closed in cDC1 s
 
 ### Figure 3, Motif analysis for cDC1
 
-![Motif analysis for cDC1](./results/motifs_cdc1.png)
+![Motif analysis for cDC1](images/motifs_cdc1.png)
 
 Motifs found with HOMER. 
 
 ### Figure 4, Motif analysis for cDC2
 
-![Motif analysis for cDC2](./results/motifs_cdc2.png)
+![Motif analysis for cDC2](images/motifs_cdc2.png)
 
 Motifs found with HOMER. 
 
@@ -179,37 +179,37 @@ Overall, the reproduced results are largely consistent with the original publica
 
 ### Figure 5, reproduction of 6a from the paper
 
-![cDC1 heatmap](./results/cDC1_diff_peaks_heatmap.png)
+![cDC1 heatmap](images/cDC1_diff_peaks_heatmap.png)
 
 Metaprofile and heatmap of DARs for cDC1. 
 
 ### Figure 6, reproduction of 6b from the paper
 
-![cDC2 heatmap](./results/cDC2_diff_peaks_heatmap.png)
+![cDC2 heatmap](images/cDC2_diff_peaks_heatmap.png)
 
 Metaprofile and heatmap of DARs for cDC2.
 
 ### Figure 7, reproduction of 6c from the paper
 
-![cDC1 scatterplot](./results/scatterplot_cdc1.png)
+![cDC1 scatterplot](images/scatterplot_cdc1.png)
 
 Scatterplot combining ATAC-seq and RNA-seq log2fold change for cDC1.
 
 ### Figure 8, reproduction of 6e from the paper
 
-![cDC2 scatterplot](./results/scatterplot_cdc2.png)
+![cDC2 scatterplot](images/scatterplot_cdc2.png)
 
 Scatterplot combining ATAC-seq and RNA-seq log2fold change for cDC2.
 
 ### Figure 9, reproduction of 6d from the paper
 
-![Maged1](./results/Maged1.png)
+![Maged1](images/Maged1.png)
 
 IGV view of Maged1 region. 
 
 ### Figure 10, reproduction of 6f from the paper
 
-![SpiB](results/SpiB.png)
+![SpiB](images/SpiB.png)
 
 IGV view of SpiB region. 
 
