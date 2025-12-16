@@ -34,7 +34,6 @@ SE -phred33 <input.fastq> <output.fastq.gz> \
 ILLUMINACLIP:<adapters>:2:30:10 \
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
-
 Quality control reports from FastQC, SAMtools, and Trimmomatic were aggregated using MultiQC v1.32 with default parameters.
 
 The reference genome was indexed, and trimmed reads were aligned to mm10 using Bowtie2 v2.5.4 with the --very-sensitive option. Peak calling was performed on aligned reads using MACS2 v2.2.9.1 with the --nomodel, --keep-dup auto, and --extsize 147 parameters.
@@ -46,6 +45,8 @@ Fraction of Reads in Peaks scores were calculated using BEDTools v2.31.1 and SAM
 For peak annotation and motif analysis, the mm10 genome was indexed using SAMtools. Differentially accessible peaks were annotated using annotatePeaks.pl from HOMER v5.1 with default parameters. Motif enrichment analysis was performed using findMotifsGenome.pl with a window size of 200 bp and motif lengths of 8, 10, and 12 bp.
 
 To reproduce figures 6c and 6e from the original publication, normalized RNA-seq count matrices for cDC1 and cDC2 samples were downloaded from GEO accession GSE266583 and the corresponding SRA project PRJNA1107627.
+
+In this pipeline, peaks were not split into gain and loss categories for downstream analysis. All significant peaks were considered together when performing enrichment, motif analysis, and figure reproduction. This approach differs from the original study, which separated peaks into gain and loss to highlight condition-specific accessibility changes.
 
 
 ### Quality control analysis
