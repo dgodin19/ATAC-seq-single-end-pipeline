@@ -2,7 +2,7 @@
 
 process FIND_MOTIFS {
     conda 'envs/homer_env.yml'
-    publishDir params.outdir, mode: "copy", pattern: '{motif_output,findMotifs.log}'
+    publishDir params.outdir, mode: "copy", pattern: '{motif_output_*,findMotifs_*.log}'
     label 'process_high'
 
     input:

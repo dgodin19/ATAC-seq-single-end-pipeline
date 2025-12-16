@@ -223,4 +223,5 @@
 2025-12-14 21:31:57	3.5s	big_ramanujan	ERR	f4db4a918ad60eacd04d5ff4745b561d	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-14 21:33:31	5m 2s	ecstatic_meitner	OK	18d01f3598a969b6023a0e128d722ae0	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
 2025-12-14 21:39:29	47s	awesome_mccarthy	OK	18d01f3598a969b6023a0e128d722ae0	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
-2025-12-14 21:51:39	-	cranky_hawking	-	18d01f3598a969b6023a0e128d722ae0	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-14 21:51:39	8m 57s	cranky_hawking	OK	18d01f3598a969b6023a0e128d722ae0	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda
+2025-12-15 16:36:47	17m 28s	infallible_bohr	OK	27f4360c7c17c7a52303790e2eebcffd	03944665-5f6a-45be-9d96-0403d66d2807	nextflow run main.nf -profile cluster,conda

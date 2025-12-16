@@ -191,10 +191,10 @@ workflow {
     COMPUTE_TSS_ENRICH_CDC1(PLOTPROFILE_CDC1.out.signal_tab)
     COMPUTE_TSS_ENRICH_CDC2(PLOTPROFILE_CDC2.out.signal_tab)
 
-    /*
+    
     genome_idx_ch = SAMTOOLS_GENOME(params.genome)
     ANNOTATE(DIFFBIND.out.significant_peaks, genome_idx_ch, params.gtf)
-    FIND_MOTIFS(DIFFBIND.out.significant_peaks, genome_idx_ch)*/
+    FIND_MOTIFS(DIFFBIND.out.significant_peaks, genome_idx_ch)
 
     
 }
