@@ -36,7 +36,7 @@ LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Quality control reports from FastQC, SAMtools, and Trimmomatic were aggregated using MultiQC v1.32 with default parameters.
 
-The reference genome was indexed, and trimmed reads were aligned to mm10 using Bowtie2 v2.5.4 with the --very-sensitive option. Peak calling was performed on aligned reads using MACS2 v2.2.9.1 with the --nomodel, --keep-dup auto, and --extsize 147 parameters.
+The reference genome was indexed, and trimmed reads were aligned to mm10 using Bowtie2 v2.5.4 with the --very-sensitive option, with mitochondrial reads removed after alignment. Peak calling was performed on aligned reads using MACS2 v2.2.9.1 with the --nomodel, --keep-dup auto, and --extsize 147 parameters.
 
 Genome wide coverage tracks were generated from the aligned BAM files using bamCoverage from deepTools v3.5.6 with a bin size of 10 and CPM normalization. Transcription start site signal matrices were generated using computeMatrix with a 500 bp window centered on the TSS. Signal profiles were visualized using plotProfile, and transcription start site enrichment scores were calculated using a custom Python script implemented with Python 3.14.1, pandas v2.3.3, and NumPy v2.3.5. Signal heatmaps were generated using plotHeatmap with k means clustering set to three clusters.
 
