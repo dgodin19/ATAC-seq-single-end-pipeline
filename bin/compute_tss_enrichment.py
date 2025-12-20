@@ -22,7 +22,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-# Read in the data, skipping unneeded header lines (first 2 lines are not data)
+# Read in the data, skipping unneeded header lines 
 df = pd.read_csv(args.input, sep="\t", header=None, skiprows=2)
 
 with open(args.output, "w") as f:
