@@ -218,7 +218,7 @@ IGV view of SpiB region.
 
 A natural extension of this study would be to repeat the ATAC-seq experiment using paired-end sequencing. Paired-end reads provide more accurate fragment size information and improved alignment resolution, which could strengthen the confidence in differential accessibility results.
 
-Beyond technical improvements, a translational approach could explore whether pharmacological or genetic targeting of HDAC1 in dendritic cells affects tumor growth, building on the authors’ observation that HDAC1 deletion attenuates tumor progression.
+Beyond technical improvements, a translational approach could explore whether pharmacological or genetic targeting of HDAC1 in dendritic cells affects tumor growth, to build on the authors’ observation that HDAC1 deletion attenuates tumor progression.
 
 Additionally, single-cell RNA-seq could be employed to investigate the tumor microenvironment in the context of HDAC1 deletion to enable more detailed characterization of cell type-specific transcriptional programs and immune responses. 
 
